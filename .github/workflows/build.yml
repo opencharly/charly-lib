@@ -48,7 +48,7 @@ jobs:
         with:
           go-version-file: .sdk/go.mod
 
-      - name: Fetch the welded plugin pins (single source: opencharly/charly)
+      - name: Fetch the welded plugin pins from opencharly/charly (single source)
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
