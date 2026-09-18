@@ -17,7 +17,7 @@ closure is stored **once** instead of re-linked into each per-plugin binary
 - **The host source is GENERATED** — `charly-lib-gen`
   (`opencharly/sdk/cmd/charly-lib-gen`) emits `main.go` + `go.mod` that register
   each pinned plugin into `charlylib.Run` (`opencharly/sdk/charlylib`), then the
-  binary is built pure-Go (`CGO_ENABLED=0`) for amd64 + arm64.
+  binary is built pure-Go (`CGO_ENABLED=0`) for amd64 + arm64 + armv7.
 - **The loader contract is unchanged** — a `.providers` word manifest beside an
   executable named `plugin-<word>`; charly's `bakedPluginDirs` works as-is.
 
@@ -25,8 +25,12 @@ closure is stored **once** instead of re-linked into each per-plugin binary
 
 | asset | what |
 |---|---|
-| `charly-lib-linux-amd64` / `charly-lib-linux-arm64` | the host binary |
+| `charly-lib-linux-amd64` / `charly-lib-linux-arm64` / `charly-lib-linux-armv7` | the host binary |
 | `<plugin>.providers` | each plugin's word manifest (maps `class:word` → the `plugin-<word>` symlink) |
+
+`armv7` is the 32-bit appliance target (a JetKVM's uClibc `armv7l` userland, older
+32-bit SBCs) — the same third architecture the main `charly` release publishes.
+It builds as `GOARCH=arm GOARM=7` (`armv7` is not a valid `GOARCH`).
 
 ## Building
 
